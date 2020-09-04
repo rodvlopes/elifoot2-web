@@ -27,7 +27,8 @@ async function myinit(elem) {
 
   console.log('url', url)
   ci = await Dos(elem).run(url) 
-  startPersistenceWatcher()
+  startIndexedDBPersistenceWatcher()
+  startAltF1SaveWatcher()
 }
 
 async function save() {
@@ -60,35 +61,36 @@ function xhrLoad(fs) {
   }).then(function (response) {
     return response.arrayBuffer()
   })
- // .then(function(text){
- //     if (!text) return null
- //     return new Uint8Array(atob(text).split(',')) 
- // })
   .catch (function (error) {
       console.log('Request failed to load', error)
   })
 }
 
-function startPersistenceWatcher() {
+function startIndexedDBPersistenceWatcher() {
   setInterval(async () => {
     const updated = await ci.persist()
     await cache.put(IDB_KEY, updated)
   }, 5000)
 }
 
+function startAltF1SaveWatcher() {
+  let saveInProgress = false
+  let enterPressed  = 0
+  const f1 = 112
+  const enter = 13
 
-function foo() {
-  console.log('foo')
-  return fetch(`test`, {
-    method: "POST",
-    body: new Uint8Array([1,2,3,4,5])
-  }).then(function (response) {
-    return response.text();
-  })
-  .then(function (result) {
-      console.log('Server renponded', result);
-  })
-  .catch (function (error) {
-      console.log('Request failed to load', error);
+  document.addEventListener("keydown", function(e){
+    if (e.keyCode == f1 && e.altKey) {
+        saveInProgress = true
+        enterPressed = 0
+    }
+    if (saveInProgress && e.keyCode == enter) {
+        enterPressed++
+    }
+    if (saveInProgress && e.keyCode == enter && enterPressed > 1) {
+        saveInProgress = false
+        setTimeout(save, 1000)
+    }
   })
 }
+
