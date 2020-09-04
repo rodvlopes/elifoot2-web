@@ -1,0 +1,19 @@
+{
+  "name": "webdos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "emulators": "^0.0.25",
+    "emulators-ui": "^0.0.23",
+    "express": "^4.17.1",
+    "js-dos": "^7.0.0-beta.r10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "cp -fr node_modules/{js-dos,emulators,emulators-ui/dist/* public/ || echo 'Copied.'"
+  },
+  "author": "",
+  "license": "ISC"
+}
