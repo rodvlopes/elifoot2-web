@@ -27,7 +27,6 @@ async function myinit(elem) {
 
   console.log('url', url)
   ci = await Dos(elem).run(url) 
-  startIndexedDBPersistenceWatcher()
   startAltF1SaveWatcher()
 }
 
@@ -66,11 +65,9 @@ function xhrLoad(fs) {
   })
 }
 
-function startIndexedDBPersistenceWatcher() {
-  setInterval(async () => {
-    const updated = await ci.persist()
-    await cache.put(IDB_KEY, updated)
-  }, 5000)
+async function saveIndexedDb() {
+  const updated = await ci.persist()
+  await cache.put(IDB_KEY, updated)
 }
 
 function startAltF1SaveWatcher() {
@@ -89,7 +86,10 @@ function startAltF1SaveWatcher() {
     }
     if (saveInProgress && e.keyCode == enter && enterPressed > 1) {
         saveInProgress = false
-        setTimeout(save, 1000)
+        if (user) {
+          setTimeout(save, 1000)
+        }
+        setTimeout(saveIndexedDb, 1000)
     }
   })
 }
