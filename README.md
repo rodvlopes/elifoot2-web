@@ -1,6 +1,6 @@
-# Elifoot Web
+# Elifoot II Web
 
-The famous 90's game running on the broser
+The famous 90's game running on the browser
 
 ### Thanks to
 
@@ -10,7 +10,7 @@ The famous 90's game running on the broser
 
 ## Auto save
 
-The keystrokes  alt+f1 -> return -> return triggers a save on indexedDb.
+The keystrokes  ```alt+f1 -> return -> return``` triggers a save to indexedDb.
 
 ### Backend
 
