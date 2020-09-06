@@ -2,6 +2,8 @@
 
 The famous 90's game running on the browser
 
+![InitImage](./elifoot2-init.png)
+
 ### Thanks to
 
 - Dosbox
